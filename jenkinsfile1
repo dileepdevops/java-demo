@@ -1,4 +1,7 @@
 node {	
+ wrap([$class: 'Xvfb', screen: '1440x900x24']) {
+  // execute selenium tests
+}
  stage('SCM Checkout'){
          git 'https://github.com/adghb/java-demo'
    }
