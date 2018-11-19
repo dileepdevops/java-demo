@@ -3,8 +3,11 @@ node {
          git 'https://github.com/adghb/java-demo'
    }
    stage('package') {
-    def mvnHome = tool name: 'xvfb', type: 'xvfb'{
+    def xvfbHome = tool name: 'xvfb', type: 'xvfb'{
      sh "${xvfbHome}/usr/bin Xvfb :99 & export DISPLAY=:99"
+     }
+     }
+     stage('package') {
   // execute selenium tests
        // Get maven home path
        def mvnHome = tool name: 'maven-3', type: 'maven'
@@ -79,5 +82,6 @@ node {
   sh '/home/ubuntu/apache-jmeter-5.0/bin/jmeter.sh -n -t jmeter_example.jmx -l Jmeter_test_Report.jtl'
   
   }
+}
 }
 }
