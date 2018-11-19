@@ -3,7 +3,7 @@ node {
          git 'https://github.com/adghb/java-demo'
    }
    stage('package') {
-    def xvfbHome = tool name: 'xvfb', type: 'xvfb'{
+    def XvfbHome = tool name: 'xvfb', type: 'Xvfb'{
      sh "${xvfbHome}/usr/bin Xvfb :99 & export DISPLAY=:99"
      }
      }
