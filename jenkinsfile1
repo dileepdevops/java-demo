@@ -3,7 +3,7 @@ node {
          git 'https://github.com/adghb/java-demo'
    }
    stage('package') {
-   wrap([$class: 'Xvfb', screen: '1440x900x24' & export DISPLAY=":1"]) {
+   wrap([$class: 'Xvfb', screen: '1440x900x24']) {
   // execute selenium tests
        // Get maven home path
        def mvnHome = tool name: 'maven-3', type: 'maven'
