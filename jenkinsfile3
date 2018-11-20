@@ -8,14 +8,15 @@ node {
        sh "${mvnHome}/bin/mvn clean package -DskipTests=true"
 }
   stage('Build Docker Image'){
-    sh 'docker build -t ubuntu/contact:0.0.1 .'
+     sh 'docker build -t ubuntu/contact:0.0.1 .'
+     
 }
 stage('deploy'){
   sshagent(['tomcat']) {
-     sh 'ssh -o StrictHostKeyChecking=no ubuntu@23.22.251.165 "cd /home/ubuntu && rm -rf java_app && mkdir java_app"'
-     sh 'scp -o StrictHostKeyChecking=no target/*.war ubuntu@23.22.251.165:/home/ubuntu/java_app'
-     sh 'ssh -o StrictHostKeyChecking=no ubuntu@23.22.251.165 "cd /home/ubuntu/java_app && sudo docker build -t contact ." '
-     sh "sudo docker run -p 6000:6000 --rm -t -d contact_app"
+      input 'Deploy  to Dev?'
+      def sshCmd = 'ssh -o StrictHostKeyChecking=no ubuntu@23.22.251.165'
+      def dockerRun = 'docker run -d -p 8080:8080 --name dil ubuntu/contact:0.0.1'
+      sh "${sshCmd} ${dockerRun}"
+    }
   }
-}
 }
