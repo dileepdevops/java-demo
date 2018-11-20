@@ -13,7 +13,7 @@ stage('deploy'){
      sh 'scp -o StrictHostKeyChecking=no target/*.war ubuntu@23.22.251.165:/home/ubuntu/java_app'
      sh 'scp -o StrictHostKeyChecking=no Dockerfile ubuntu@23.22.251.165:/home/ubuntu/java_app/'
      sh 'scp -o StrictHostKeyChecking=no target/*.war ubuntu@23.22.251.165:/home/ubuntu/java_app/'
-     sh 'ssh -o StrictHostKeyChecking=no ubuntu@23.22.251.165 "cd /home/ubuntu/java_app && docker build -t contact ." '
+     sh 'ssh -o StrictHostKeyChecking=no ubuntu@23.22.251.165 "cd /home/ubuntu/java_app && sudo docker build -t contact ." '
     //sh "docker build -t contact ."
      //sh "docker run -p 8080:8080 --rm -it contact"
   }
