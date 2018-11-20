@@ -16,7 +16,7 @@ stage('deploy'){
       input 'Deploy  to Dev?'
       def sshCmd = 'ssh -o StrictHostKeyChecking=no ubuntu@23.22.251.165'
       def dockerRun = 'docker run -d -p 8080:8080 --name dil ubuntu/contact:0.0.1'
-      sh "${sshCmd} ${dockerRun}"
+      sh "$sudo{sshCmd} $sudo{dockerRun}"
     }
   }
 }
