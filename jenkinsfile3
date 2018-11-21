@@ -13,7 +13,7 @@ stage('deploy'){
        sh 'scp -o StrictHostKeyChecking=no Dockerfile ubuntu@23.22.251.165:/home/ubuntu/java_app/'
        sh 'ssh -o StrictHostKeyChecking=no ubuntu@23.22.251.165 "cd /home/ubuntu/java_app && sudo docker build -t jplu/tomcat ." '
        sh 'ssh -o StrictHostKeyChecking=no ubuntu@23.22.251.165 "sudo docker run -d -p 8090:8080 -v /var/data/tomcat/:/usr/local/tomcat/webapps --name tomcat jplu/tomcat"'
-       sh 'ssh -o StrictHostKeyChecking=no ubuntu@23.22.251.165 "docker cp contact.war tomcat:/usr/local/tomcat/webapps/contact.war
+       sh 'ssh -o StrictHostKeyChecking=no ubuntu@23.22.251.165 "docker cp contact.war tomcat:/usr/local/tomcat/webapps/contact.war"'
   }
 }
 stage('deploy'){
