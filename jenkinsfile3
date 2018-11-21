@@ -9,12 +9,11 @@ node {
 }
 stage('deploy'){
   sshagent(['tomcat']) {
-       def sshCmd = 'scp -o StrictHostKeyChecking=no Dockerfile ubuntu@23.22.251.165'
-       //def sshCmd = 'scp -o StrictHostKeyChecking=no ubuntu@23.22.251.165'
-       def dockerbuild = 'sudo docker build -t jplu/tomcat .'
-       def dockerrun = 'sudo docker run -d -p 8080:8080 -v /var/data/tomcat/:/usr/local/tomcat/webapps --name tomcat jplu/tomcat'
-       def dockercp = 'docker cp contact.war tomcat:/usr/local/tomcat/webapps/contact.war'
-       sh "${sshCmd} ${dockerbuild} ${dockerrun} ${dockercp} "
+       sh 'ssh -o StrictHostKeyChecking=no ubuntu@23.22.251.165 "cd /home/ubuntu && rm -rf java_app && mkdir java_app"'
+       sh 'scp -o StrictHostKeyChecking=no Dockerfile ubuntu@23.22.251.165:/home/ubuntu/java_app/'
+       sh 'ssh -o StrictHostKeyChecking=no ubuntu@23.22.251.165 "cd /home/ubuntu/java_app && sudo docker build -t jplu/tomcat .'
+       sh 'ssh -o StrictHostKeyChecking=no ubuntu@23.22.251.165 "sudo docker run -d -p 8080:8080 -v /var/data/tomcat/:/usr/local/tomcat/webapps --name tomcat jplu/tomcat"'
+       docker cp contact.war tomcat:/usr/local/tomcat/webapps/contact.war
   }
 }
 stage('deploy'){
