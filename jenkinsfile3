@@ -9,4 +9,9 @@ node {
 }
 stage('deploy'){
   sshagent(['tomcat']) {
-      
+      sh 'scp -o StrictHostKeyChecking=no target/*.war ubuntu@172.31.1.73:/opt/tomcat/webapps/'
+      sh 'ssh -o StrictHostKeyChecking=no ubuntu@23.22.251.165 "sudo /opt/tomcat/bin/startup.sh"'
+      }
+  }
+}
+     
