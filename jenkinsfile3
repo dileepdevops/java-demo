@@ -10,10 +10,10 @@ node {
 stage('deploy'){
   sshagent(['tomcat']) {
      sh 'ssh -o StrictHostKeyChecking=no ubuntu@23.22.251.165 "cd /home/ubuntu && rm -rf java_app && mkdir java_app"'
-     sh 'scp -o StrictHostKeyChecking=no target/*contact ubuntu@23.22.251.165:/home/ubuntu/java_app'
+     sh 'scp -o StrictHostKeyChecking=no target/*.war ubuntu@23.22.251.165:/home/ubuntu/java_app'
      sh 'scp -o StrictHostKeyChecking=no Dockerfile ubuntu@23.22.251.165:/home/ubuntu/java_app/'
-     sh 'ssh -o StrictHostKeyChecking=no ubuntu@23.22.251.165 "cd /home/ubuntu/java_app && sudo docker build -t contact_app ." '
-     sh "sudo docker run -p 8081:8080 --rm -t -d contact_app"
+     sh 'ssh -o StrictHostKeyChecking=no ubuntu@23.22.251.165 "cd /home/ubuntu/java_app && sudo docker build -t contact.war ." '
+     sh "sudo docker run -p 8081:8080 --rm -t -d contact.war"
   }
 }
 stage('deploy'){
